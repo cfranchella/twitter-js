@@ -14,3 +14,21 @@ app.use("/special",function (req, res, next) {
     console.log('haz llegado a un área especial')
     next()
 })
+nunjucks.configure('views', {noCache:true});
+nunjucks.render('index.html', {
+    title: 'Un ejemplo',
+    people: [
+        {
+            name: 'Matias Sanchez'
+        },
+        {
+            name: 'Carlos Franchella'
+        },
+        {
+            name: 'Oriana Noseelappellido'
+        }, 
+    ]
+    
+}, function(err, output){
+    console.log(output);
+});
