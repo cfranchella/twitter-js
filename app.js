@@ -2,6 +2,9 @@ const express = require( 'express' );
 const app = express(); // crea una instancia de una aplicación de express
 const nunjucks = require ('nunjucks');
 
+app.set('view engine', 'html'); // hace que res.render funcione con archivos html
+app.engine('html', nunjucks.render); // cuando le den archivos html a res.render, va a usar nunjucks
+nunjucks.configure('views', { noCache: true }); // apunta a nunjucks al directorio correcto para los templates
 
 app.use(function (req, res, next) {
     // haz tu logueo aquí
@@ -10,25 +13,29 @@ app.use(function (req, res, next) {
     next()
 })
 
-app.use("/special",function (req, res, next) {
+app.get("/special",function (req, res, next) {
     console.log('haz llegado a un área especial')
-    next()
+    return res.render('index', {
+        title: 'Un ejemplo',
+        people: [
+            {
+                name: 'Matias Sanchez'
+            },
+            {
+                name: 'Carlos Franchella'
+            },
+            {
+                name: 'Oriana Chacon'
+            }, 
+        ]
+        
+    }, function(err, output){
+        console.log(output);
+        res.send(output);
+    });
 })
-nunjucks.configure('views', {noCache:true});
-nunjucks.render('index.html', {
-    title: 'Un ejemplo',
-    people: [
-        {
-            name: 'Matias Sanchez'
-        },
-        {
-            name: 'Carlos Franchella'
-        },
-        {
-            name: 'Oriana Noseelappellido'
-        }, 
-    ]
-    
-}, function(err, output){
-    console.log(output);
-});
+
+app.listen(3000);
+
+
+
