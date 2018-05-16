@@ -14,10 +14,20 @@
     <div class="col-md-9">
     
       <!-- display tweets here -->
-      {% for tweet in tweets %}
-        <li>{{tweet.content}}</li>
-      {% endfor %}
-      
+    {% for tweet in tweets %}
+    <div class="row">
+      <div class="col-md-1">
+          <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"><br>
+      </div>
+      <div class="col-md-11">
+        <ul class = "tweetstyle">
+          <li class ="tweetname"><a href="/users/{{tweet.name}}">{{tweet.name}}</a></li>
+          <li class ="tweetcontent"><a href="/tweets/{{tweet.id}}">{{tweet.content}}</li>
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+
     </div>
   </div>
     
